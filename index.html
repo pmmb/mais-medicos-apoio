@@ -135,7 +135,7 @@
 
 <h1>Pela valorização dos profissionais do Programa Mais Médicos</h1>
 
-<div id="contador" class="contador">Carregando apoios...</div>
+
 
 <p>
 Quando você ou sua família precisam do SUS, é o médico do posto de saúde que está na linha de frente. É ele quem atende na unidade básica, acompanha o idoso, a gestante, a criança com febre — quem chega onde muitas vezes ninguém mais chega.
@@ -178,6 +178,8 @@ Se queremos médico presente, motivado e permanecendo nas comunidades, precisamo
 <strong>Apoiar essa proposta é defender um SUS mais forte para todos.</strong>
 </p>
 
+<div id="contador" class="contador">Carregando apoios...</div>
+
 <div class="cta-box">
   <a href="#" class="cta-button" target="_blank">
     APOIAR A PROPOSTA NO SENADO
@@ -194,7 +196,7 @@ fetch("./apoios.json")
   .then(r => r.json())
   .then(data => {
     document.getElementById("contador").innerText =
-      data.apoios + " brasileiros já apoiaram";
+      data.apoios + " pessoas já apoiaram";
   })
   .catch(() => {
     document.getElementById("contador").innerText =

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Valorização do Mais Médicos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .contador {
+      font-size: 28px;
+      font-weight: bold;
+      color: #c62828;
+      margin: 20px 0;
+    }
+    .botao {
+      display: inline-block;
+      background: #2e7d32;
+      color: white;
+      padding: 15px 25px;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Pela valorização dos profissionais do Programa Mais Médicos</h1>
+
+<div id="contador" class="contador">Carregando apoios...</div>
+
+<a class="botao" href="#" target="_blank">
+APOIAR A PROPOSTA NO SENADO
+</a>
+
+<script>
+fetch("./apoios.json")
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById("contador").innerText =
+      data.apoios + " brasileiros já apoiaram";
+  })
+  .catch(() => {
+    document.getElementById("contador").innerText =
+      "Veja o número atualizado no Senado";
+  });
+</script>
+
+</body>
+</html>

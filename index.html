@@ -188,8 +188,144 @@ Se queremos médico presente, motivado e permanecendo nas comunidades, precisamo
     Você será redirecionado para o portal oficial do Senado Federal.
   </div>
 </div>
+<hr style="margin:50px 0">
+
+<h2>Quem já apoia esta causa</h2>
+<p>Veja os depoimentos mais recentes de apoio à valorização dos médicos do Mais Médicos.</p>
+
+<div id="videos-apoio" style="
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap:20px;
+  margin:30px 0;
+"></div>
+
+<p style="text-align:center; margin-top:10px;">
+  <a id="link-playlist" href="#" target="_blank" style="
+    font-weight:bold;
+    color:#c62828;
+    text-decoration:none;
+  ">
+    Veja mais →
+  </a>
+</p>
+
+<hr style="margin:50px 0">
+
+<h2>Como apoiar a iniciativa</h2>
+<p>Crie sua conta no GOV.BR para poder apoiar a causa</p>
+
+
+<div style="max-width:800px; margin:auto;">
+  <iframe
+    width="100%"
+    height="450"
+    src="https://www.youtube.com/watch?v=qmqJqr3fN5w&t=3s"
+    title="Como apoiar"
+    frameborder="0"
+    allowfullscreen>
+  </iframe>
+</div>
+
+<hr style="margin:50px 0">
+
+<h2>Perguntas frequentes</h2>
+
+<div style="max-width:800px; margin:auto;">
+
+  <details style="margin-bottom:12px; border:1px solid #ddd; border-radius:6px; padding:12px;">
+    <summary style="font-weight:bold; cursor:pointer;">
+      Isso é aumento de salário?
+    </summary>
+    <p style="margin-top:10px;">
+      Não. A proposta apenas corrige o valor pela inflação para evitar perda ao longo do tempo.
+    </p>
+  </details>
+
+  <details style="margin-bottom:12px; border:1px solid #ddd; border-radius:6px; padding:12px;">
+    <summary style="font-weight:bold; cursor:pointer;">
+      Isso vai aumentar gastos públicos?
+    </summary>
+    <p style="margin-top:10px;">
+      Trata-se de recomposição inflacionária, mecanismo já aplicado em diversas políticas públicas.
+    </p>
+  </details>
+
+  <details style="margin-bottom:12px; border:1px solid #ddd; border-radius:6px; padding:12px;">
+    <summary style="font-weight:bold; cursor:pointer;">
+      Por que isso é importante para o SUS?
+    </summary>
+    <p style="margin-top:10px;">
+      Manter médicos nas áreas mais carentes depende de condições mínimas de valorização profissional.
+    </p>
+  </details>
+
+  <details style="margin-bottom:12px; border:1px solid #ddd; border-radius:6px; padding:12px;">
+    <summary style="font-weight:bold; cursor:pointer;">
+      Preciso pagar algo para apoiar?
+    </summary>
+    <p style="margin-top:10px;">
+      Não. O apoio é gratuito e feito pelo portal oficial do Senado.
+    </p>
+  </details>
 
 </div>
+
+</div>  
+  
+<script>
+/* ========= CONFIGURE AQUI ========= */
+
+const PLAYLIST_ID = "PLZJoO86DqMTT_wXmEFkDDWrZrnmmCsm66";
+const API_KEY = "AIzaSyAM6KoQh7ScL6B17a0ZMF_humGqBJ8_g1g";
+
+/* ================================== */
+
+async function carregarVideos() {
+  try {
+    const url =
+      `https://www.googleapis.com/youtube/v3/playlistItems?` +
+      `part=snippet&maxResults=3&playlistId=${PLAYLIST_ID}&key=${API_KEY}`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const container = document.getElementById("videos-apoio");
+    container.innerHTML = "";
+
+    data.items.forEach(item => {
+      const videoId = item.snippet.resourceId.videoId;
+      const thumb = item.snippet.thumbnails.medium.url;
+      const title = item.snippet.title;
+
+      const html = `
+        <a href="https://www.youtube.com/watch?v=${videoId}"
+           target="_blank"
+           style="text-decoration:none; color:inherit;">
+          <div style="border:1px solid #ddd; border-radius:8px; overflow:hidden;">
+            <img src="${thumb}" style="width:100%;">
+            <div style="padding:10px; font-size:14px; font-weight:bold;">
+              ${title}
+            </div>
+          </div>
+        </a>
+      `;
+
+      container.innerHTML += html;
+    });
+
+    document.getElementById("link-playlist").href =
+      `https://www.youtube.com/playlist?list=${PLAYLIST_ID}`;
+
+  } catch (e) {
+    document.getElementById("videos-apoio").innerHTML =
+      "<p>Não foi possível carregar os vídeos.</p>";
+  }
+}
+
+carregarVideos();
+</script>  
+
 
 <script>
 fetch("./apoios.json")
